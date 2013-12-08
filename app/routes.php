@@ -27,18 +27,27 @@ Route::get('about', function()
 
 // App Routes
 
-Route::get('scripture/page/{id?}', function($id = 1)
+Route::get('scripture/page/{page_id?}', function($page_id = 1)
 {
 	// Return the given page in the scripture, with translation and transliteration
-	$data = Scripture::where('page', '=', $id)->get();
+	$data = Scripture::where('page', '=', $page_id)->get();
+
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
 
 	return Response::json($data);
 });
 
-Route::get('scripture/hymn/{id?}', function($id = 1)
+Route::get('scripture/hymn/{hymn_id?}', function($hymn_id = 1)
 {
-	// Return the given hymn in the scripture, with translation and transliteration
-	$data = Scripture::where('hymn', '=', $id)->get();
+	// Return the given hymn in the scripture, with translation and transliteration as specified by a query parameter
+	$data = Scripture::where('hymn', '=', $hymn_id)->get();
+
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
+
 	foreach($data as $hymn){
 		$hymn['melody'] = json_decode((String)Scripture::find($hymn->id)->melody);
 		$hymn['author'] = json_decode((String)Scripture::find($hymn->id)->author);
@@ -58,6 +67,25 @@ Route::get('scripture/{id?}', function($id = 1)
 	return Response::json($data);
 });
 
+Route::get('translation/page/{page_id?}/{language_id?}', function($page_id = 1, $language_id = 1)
+{
+	$data = Scripture::where('page', '=', $page_id)->get();
+
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
+
+	foreach($data as $hymn){
+		$scripture_id = $hymn->id;
+		$translation = Translation::whereRaw("scripture_id = {$scripture_id} and language_id = {$language_id}")->firstOrFail();
+		$data['scripture'] = json_decode((String)Translation::find($translation->id)->scripture);
+		$data['text'] = json_decode((String)Translation::find($translation->id)->text);
+		$data['language'] = json_decode((String)Translation::find($translation->id)->language);
+	}
+	
+	return Response::json($data);
+});
+
 Route::get('translation/{scripture_id?}/{language_id?}', function($scripture_id = 1, $language_id = 1)
 {
 	$data = Translation::whereRaw("scripture_id = {$scripture_id} and language_id = {$language_id}")->firstOrFail();
@@ -67,16 +95,13 @@ Route::get('translation/{scripture_id?}/{language_id?}', function($scripture_id 
 	return Response::json($data);
 });
 
-Route::get('random', function()
-{
-	// Returns a random hymn for the day
-	// $data = Scripture::find(rand(0,60403));
-	// return Response::json($data);
-});
-
 Route::get('melody', function()
 {
 	$data = Melody::all();
+
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
 
 	return Response::json($data);
 });
@@ -92,6 +117,10 @@ Route::get('author', function()
 {
 	$data = Author::all();
 
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
+
 	return Response::json($data);
 });
 
@@ -106,6 +135,10 @@ Route::get('language', function()
 {
 	$data = Language::all();
 
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
+
 	return Response::json($data);
 });
 
@@ -114,6 +147,15 @@ Route::get('language/{id?}', function($id = 1)
 	$data = Language::where('id', '=', $id)->firstOrFail();
 
 	return Response::json($data);
+});
+
+// Custom Query Routes
+
+Route::get('random', function()
+{
+	// Returns a random hymn for the day
+	// $data = Scripture::find(rand(0,60403));
+	// return Response::json($data);
 });
 
 // Error Routes
