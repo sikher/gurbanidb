@@ -75,12 +75,23 @@ Route::get('translation/page/{page_id?}/{language_id?}', function($page_id = 1, 
 		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
 	}
 
-	foreach($data as $hymn){
-		$scripture_id = $hymn->id;
-		$translation = Translation::whereRaw("scripture_id = {$scripture_id} and language_id = {$language_id}")->firstOrFail();
-		$data['scripture'] = json_decode((String)Translation::find($translation->id)->scripture);
-		$data['text'] = json_decode((String)Translation::find($translation->id)->text);
-		$data['language'] = json_decode((String)Translation::find($translation->id)->language);
+	foreach($data as $line){
+		$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
+	}
+	
+	return Response::json($data);
+});
+
+Route::get('translation/hymn/{hymn_id?}/{language_id?}', function($hymn_id = 1, $language_id = 1)
+{
+	$data = Scripture::where('hymn', '=', $hymn_id)->get();
+
+	if(count($data) === 0) {
+		throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+	}
+
+	foreach($data as $line){
+		$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
 	}
 	
 	return Response::json($data);
