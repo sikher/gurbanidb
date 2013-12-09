@@ -13,7 +13,8 @@
 
 App::before(function($request)
 {
-	//
+	header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
 });
 
 
