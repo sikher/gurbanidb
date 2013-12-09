@@ -22,7 +22,7 @@ Route::get('/', function()
 
 Route::get('about', function()
 {
-	return Response::json(Array('name'=>'GurbaniDB','version'=>'1.0.0'));
+	return Response::json(Array('name'=>'GurbaniDB','version'=>'2.0'));
 });
 
 // App Routes
