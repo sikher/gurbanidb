@@ -2,7 +2,9 @@
 
 Version: 2.0
 
-We decided to keep this API and the GurbaniDB database version (https://github.com/sikher/docs) the same because they were developed together and are compatible with one another
+Welcome to the GurbaniDB API for the Sikh Scriptures developed using the popular Laravel PHP Framework. We decided to take advantage of Laravel's fantastic ORM to rapidly develop this API.
+
+We decided to keep this API version (2.0) and the GurbaniDB database version (2.0) the same because they were developed together and are compatible with one another.
 
 GurbaniDB API Version 1.0, as used formerly in the GurbaniDB search engine, is now deprecated and we will no longer be supporting or documenting it.
 
@@ -43,13 +45,13 @@ Just use `git` to clone the ssh version:
 
 1. Please setup a vhost called `api.dev` (or a name of your choosing) to point to the directory where you just downloaded the GurbaniDB repository
 2. Now open `Terminal` or the command-line and use `cd` to navigate to the GurbaniDB repository. Then run the command `php composer.phar install` to install all the dependencies of the [Laravel](http://laravel.com/docs/installation) PHP framework
-3. Open a browser and navigate to `api.dev/` to see if it loads the homepage. If not, check your Apache error log and double-check you install all the pre-requisites properly.
+3. Open a browser and navigate to `api.dev/` to see if it loads the homepage. If not, check your Apache error log and double-check you installed all the pre-requisites properly.
 
 ### Step 3: Install Local GurbaniDB Database & Setup Production Database 
 
-1. Download the GurbaniDB database here: http://www.sikher.com/sql/2.0/
+1. Download the GurbaniDB 2.0 database here: http://www.sikher.com/sql/2.0/
 2. Follow the installation instructions here: https://github.com/sikher/docs/blob/master/2.0.md
-3. Go to `./app/config/` in your repository and `mkdir` 'production'. Then `cp` the file `database.php` into the new production folder and modify them as necessary. Double-check the database settings inside the following folders:
+3. Go to `./app/config/` in your repository and `mkdir` 'production'. Then `cp` the file `database.php` into the new production folder. Now update the database settings inside the following files:
 	* `app/config/database.php` - Default Database
 	* `app/config/local/database.php` - Local Database
 	* `app/config/production/database.php` - Production Database
