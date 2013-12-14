@@ -51,7 +51,7 @@
 	  			<h2>Welcome to the GurbaniDB API</h2>
 	  			<p>Please check out our developer docs for full details about our API</p>
 	  			<p>
-	  				<a class="btn btn-lg btn-primary" href="https://github.com/sikher/docs" role="button">View Developer Docs &raquo;</a>
+	  				<a class="btn btn-lg btn-primary" href="https://github.com/sikher/gurbanidb" role="button">View Developer Docs &raquo;</a>
 	  			</p>
 	  		</div>
 

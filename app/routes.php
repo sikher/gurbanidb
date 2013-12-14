@@ -29,7 +29,7 @@ Route::get('about', function()
 
 Route::get('scripture/page/{page_id?}', function($page_id = 1)
 {
-	// Return the given page in the scripture, with translation and transliteration
+	// Return the given page in the scripture
 	$data = Scripture::where('page', '=', $page_id)->get();
 
 	if(count($data) === 0) {
@@ -41,7 +41,7 @@ Route::get('scripture/page/{page_id?}', function($page_id = 1)
 
 Route::get('scripture/hymn/{hymn_id?}', function($hymn_id = 1)
 {
-	// Return the given hymn in the scripture, with translation and transliteration as specified by a query parameter
+	// Return the given hymn in the scripture
 	$data = Scripture::where('hymn', '=', $hymn_id)->get();
 
 	if(count($data) === 0) {
@@ -203,9 +203,6 @@ Route::get('language/{id?}', function($id = 1)
 
 Route::get('random', function()
 {
-	// Returns a random hymn for the day
-	// $data = Scripture::find(rand(0,60403));
-	// return Response::json($data);
 });
 
 // Error Routes

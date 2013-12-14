@@ -8,6 +8,9 @@ We decided to keep this API version (2.0) and the GurbaniDB database version (2.
 
 GurbaniDB API Version 1.0, as used formerly in the GurbaniDB search engine, is now deprecated and we will no longer be supporting or documenting it.
 
+## Demo
+The latest version of this repo is live at: http://api.sikher.com
+
 ## Pre-requisites
 
 Before installing the GurbaniDB API, please ensure you have the following packages installed on your local machine or server.
@@ -58,8 +61,28 @@ Just use `git` to clone the ssh version:
 
 The local and production environments are determined by the `bootstrap/start.php` file, so you will also have to modify this to your local and production server HTTP host names.
 
+## API Routes
+
+Below is a list of all the API routes supported in this application, which you can also find in `app/routes.php`:
+* `/about` - Gives version number of API
+* `/scripture/page/{page_id?}` - Gives back the page, defaults to page 1
+* `/scripture/hymn/{hymn_id?}` - Gives back the hymn, defaults to hymn 1
+* `/scripture/{id?}` - Gives back the line, defaults to line 1
+* `/translation/page/{page_id?}/{language_id?}` - Gives back the translation of a page in the language specified, defaults to 1/1
+* `/translation/hymn/{hymn_id?}/{language_id?}` - Gives back the translation of a hymn in the language specified, defaults to 1/1
+* `/translation/{scripture_id?}/{language_id?}` - Gives back the translation of a line in the language specified, defaults to 1/1
+* `/transliteration/page/{page_id?}/{language_id?}` - Gives back the transliteration of a page in the language specified, defaults to 1/55
+* `/transliteration/hymn/{hymn_id?}/{language_id?}` - Gives back the transliteration of a hymn in the language specified, defaults to 1/55
+* `/transliteration/{scripture_id?}/{language_id?}` - Gives back the transliteration of a line in the language specified, defaults to 1/55
+* `/melody` - Gives back a list of all the melodies
+* `/melody/{id?}` - Gives back the melody specified, defaults to 1
+* `/author` - Gives back a list of all the authors
+* `/author/{id?}` - Gives back the author specified, defaults to 1
+* `/language` - Gives back a list of all the languages
+* `/language/{id?}` - Gives back the language specified, defaults to 1
+
 ## To Do
-* Add ability to search by first letter
+* Add ability to search by first letter, which returns line, hymn and page ids for each search
 * Finish endpoint to return random page
 * Add in some logic to track the usage of each endpoint
 * Put the route logic back into the models (where it belongs!)
