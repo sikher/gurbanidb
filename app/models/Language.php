@@ -1,6 +1,3 @@
 <?php
 
-class Language extends Eloquent
-{
-	protected $table = 'language';
-}
+class Language extends Eloquent {}

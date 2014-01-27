@@ -1,6 +1,3 @@
 <?php
 
-class Author extends Eloquent
-{
-	protected $table = 'author';
-}
+class Author extends Eloquent {}

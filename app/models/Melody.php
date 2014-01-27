@@ -2,5 +2,5 @@
 
 class Melody extends Eloquent
 {
-	protected $table = 'melody';
+	protected $table = 'melodies';
 }

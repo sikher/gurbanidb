@@ -2,8 +2,6 @@
 
 class Scripture extends Eloquent
 {
-	protected $table = 'scripture';
-
 	public function melody()
 	{
 		return $this->belongsTo('Melody');
