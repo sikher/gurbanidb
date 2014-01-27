@@ -83,6 +83,4 @@ Below is a list of all the API routes supported in this application, which you c
 
 ## To Do
 * Add ability to search by first letter, which returns line, hymn and page ids for each search
-* Finish endpoint to return random page
 * Add in some logic to track the usage of each endpoint
-* Put the route logic back into the models (where it belongs!)
