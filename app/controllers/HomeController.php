@@ -15,7 +15,7 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public $about = Array('name'=>'GurbaniDB','version'=>'2.0');
+	public $about = Array('name'=>'GurbaniDB','version'=>'2.1');
 
 	public function showHome()
 	{
@@ -59,7 +59,7 @@ class HomeController extends BaseController {
 		$this->throwError($data);
 
 		foreach($data as $line) {
-			$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
+			$line['translation'] = Translation::only($line->id,$language_id)->firstOrFail()->toArray();
 		}
 		
 		return Response::json($data);
@@ -72,7 +72,7 @@ class HomeController extends BaseController {
 		$this->throwError($data);
 
 		foreach($data as $line) {
-			$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
+			$line['translation'] = Translation::only($line->id,$language_id)->firstOrFail()->toArray();
 		}
 		
 		return Response::json($data);
@@ -81,6 +81,8 @@ class HomeController extends BaseController {
 	public function showTranslationLine($scripture_id = 1, $language_id = 1)
 	{
 		$data = Translation::line($scripture_id,$language_id)->get();
+
+		$this->throwError($data);
 		
 		return Response::json($data);
 	}
@@ -92,7 +94,7 @@ class HomeController extends BaseController {
 		$this->throwError($data);
 
 		foreach($data as $line) {
-			$line['transliteration'] = json_decode((String)Transliteration::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
+			$line['transliteration'] = Transliteration::only($line->id,$language_id)->firstOrFail()->toArray();
 		}
 		
 		return Response::json($data);
@@ -105,7 +107,7 @@ class HomeController extends BaseController {
 		$this->throwError($data);
 
 		foreach($data as $line) {
-			$line['transliteration'] = json_decode((String)Transliteration::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
+			$line['transliteration'] = Transliteration::only($line->id,$language_id)->firstOrFail()->toArray();
 		}
 		
 		return Response::json($data);
@@ -114,6 +116,8 @@ class HomeController extends BaseController {
 	public function showTransliterationLine($scripture_id = 1, $language_id = 55)
 	{
 		$data = Transliteration::line($scripture_id,$language_id)->get();
+
+		$this->throwError($data);
 		
 		return Response::json($data);
 	}

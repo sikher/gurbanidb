@@ -12,18 +12,42 @@ class TransliterationApiTest extends TestCase {
     	$this->assertResponseOk();
 	}
 
-	public function testTransliterationReturnsLineWithParameters()
+	public function testTransliterationReturnsLineWithLineParameters()
 	{
     	$this->call('GET', 'transliteration/1');
+    	$this->assertResponseOk();
+	}
+
+	public function testTransliterationReturnsLineWithLineAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/1/55');
     	$this->assertResponseOk();
 	}
 
 	/**
 	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
 	*/
-	public function testTransliterationReturnsLine404WithInvalidParameters()
+	public function testTransliterationReturnsLine404WithInvalidLineParameters()
 	{
     	$this->call('GET', 'transliteration/0');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsLine404WithInvalidLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/1/54');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsLine404WithInvalidLineAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/0/54');
     	$this->assertResponseStatus(404);
 	}
 
@@ -33,18 +57,42 @@ class TransliterationApiTest extends TestCase {
     	$this->assertResponseOk();
 	}
 
-	public function testTransliterationReturnsPageWithParameters()
+	public function testTransliterationReturnsPageWithPageParameters()
 	{
     	$this->call('GET', 'transliteration/page/1');
+    	$this->assertResponseOk();
+	}
+
+	public function testTransliterationReturnsPageWithPageAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/page/1/55');
     	$this->assertResponseOk();
 	}
 
 	/**
 	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
 	*/
-	public function testTransliterationReturnsPage404WithInvalidParameters()
+	public function testTransliterationReturnsPage404WithInvalidPageParameters()
 	{
     	$this->call('GET', 'transliteration/page/0');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsPage404WithInvalidLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/page/1/54');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsPage404WithInvalidPageAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/page/0/0');
     	$this->assertResponseStatus(404);
 	}
 
@@ -54,20 +102,43 @@ class TransliterationApiTest extends TestCase {
     	$this->assertResponseOk();
 	}
 
-	public function testTransliterationReturnsHymnWithParameters()
+	public function testTransliterationReturnsHymnWithHymnParameters()
 	{
     	$this->call('GET', 'transliteration/hymn/1');
+    	$this->assertResponseOk();
+	}
+
+	public function testTransliterationReturnsHymnWithHymnAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/hymn/1/55');
     	$this->assertResponseOk();
 	}
 
 	/**
 	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
 	*/
-	public function testTransliterationReturnsHymn404WithInvalidParameters()
+	public function testTransliterationReturnsHymn404WithInvalidHymnParameters()
 	{
     	$this->call('GET', 'transliteration/hymn/0');
     	$this->assertResponseStatus(404);
 	}
 
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsHymn404WithInvalidLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/hymn/1/54');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testTransliterationReturnsHymn404WithInvalidHymnAndLanguageParameters()
+	{
+    	$this->call('GET', 'transliteration/hymn/0/54');
+    	$this->assertResponseStatus(404);
+	}
 
 }
