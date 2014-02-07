@@ -1,10 +1,10 @@
 ## GurbaniDB API
 
-Version: 2.0
+Version: 2.1
 
 Welcome to the GurbaniDB API for the Sikh Scriptures developed using the popular Laravel PHP Framework. We decided to take advantage of Laravel's fantastic ORM to rapidly develop this API.
 
-We decided to keep this API version (2.0) and the GurbaniDB database version (2.0) the same because they were developed together and are compatible with one another.
+We decided to keep this API version (2.x) and the GurbaniDB database version (2.x) the same because they were developed together and are compatible with one another.
 
 GurbaniDB API Version 1.0, as used formerly in the GurbaniDB search engine, is now deprecated and we will no longer be supporting or documenting it.
 
@@ -52,14 +52,32 @@ Just use `git` to clone the ssh version:
 
 ### Step 3: Install Local GurbaniDB Database & Setup Production Database 
 
-1. Download the GurbaniDB 2.0 database here: http://www.sikher.com/sql/2.0/
-2. Follow the installation instructions here: https://github.com/sikher/docs/blob/master/2.0.md
+1. Download the GurbaniDB 2.1 database here: http://www.sikher.com/sql/2.1/
+2. Follow the installation instructions here: https://github.com/sikher/docs/blob/master/2.x.md
 3. Go to `./app/config/` in your repository and `mkdir` 'production'. Then `cp` the file `database.php` into the new production folder. Now update the database settings inside the following files:
 	* `app/config/database.php` - Default Database
 	* `app/config/local/database.php` - Local Database
 	* `app/config/production/database.php` - Production Database
 
 The local and production environments are determined by the `bootstrap/start.php` file, so you will also have to modify this to your local and production server HTTP host names.
+
+## Running Tests
+
+To run the unit tests simply navigate to the root of the directory in `Terminal` and use the command:
+
+	$ phpunit
+
+If everything is setup right, you should see something like:
+
+	PHPUnit 3.7.28 by Sebastian Bergmann.
+
+	Configuration read from {dir/to/your/application}/phpunit.xml
+
+	......................................................
+
+	Time: 2.16 seconds, Memory: 55.00Mb
+
+	OK (54 tests, 54 assertions)
 
 ## API Routes
 
