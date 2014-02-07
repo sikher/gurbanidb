@@ -52,7 +52,7 @@ Just use `git` to clone the ssh version:
 
 ### Step 3: Install Local GurbaniDB Database & Setup Production Database 
 
-1. Download the GurbaniDB 2.1 database here: http://www.sikher.com/sql/2.1/
+1. Download the GurbaniDB 2.x database here: http://www.sikher.com/sql/2.x/
 2. Follow the installation instructions here: https://github.com/sikher/docs/blob/master/2.x.md
 3. Go to `./app/config/` in your repository and `mkdir` 'production'. Then `cp` the file `database.php` into the new production folder. Now update the database settings inside the following files:
 	* `app/config/database.php` - Default Database
@@ -71,27 +71,21 @@ If everything is setup right, you should see something like:
 
 	PHPUnit 3.7.28 by Sebastian Bergmann.
 
-	Configuration read from {dir/to/your/application}/phpunit.xml
+	Configuration read from {/dir/to/application}/phpunit.xml
 
-	......................................................
+	....................................
 
-	Time: 2.16 seconds, Memory: 55.00Mb
+	Time: 1.86 seconds, Memory: 40.25Mb
 
-	OK (54 tests, 54 assertions)
+	OK (36 tests, 36 assertions)
 
 ## API Routes
 
 Below is a list of all the API routes supported in this application, which you can also find in `app/routes.php`:
 * `/about` - Gives version number of API
-* `/scripture/page/{page_id?}` - Gives back the page, defaults to page 1
-* `/scripture/hymn/{hymn_id?}` - Gives back the hymn, defaults to hymn 1
-* `/scripture/{id?}` - Gives back the line, defaults to line 1
-* `/translation/page/{page_id?}/{language_id?}` - Gives back the translation of a page in the language specified, defaults to 1/1
-* `/translation/hymn/{hymn_id?}/{language_id?}` - Gives back the translation of a hymn in the language specified, defaults to 1/1
-* `/translation/{scripture_id?}/{language_id?}` - Gives back the translation of a line in the language specified, defaults to 1/1
-* `/transliteration/page/{page_id?}/{language_id?}` - Gives back the transliteration of a page in the language specified, defaults to 1/55
-* `/transliteration/hymn/{hymn_id?}/{language_id?}` - Gives back the transliteration of a hymn in the language specified, defaults to 1/55
-* `/transliteration/{scripture_id?}/{language_id?}` - Gives back the transliteration of a line in the language specified, defaults to 1/55
+* `/page/{page_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a page in the language specified, defaults to 1/1/55
+* `/hymn/{hymn_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a hymn in the language specified, defaults to 1/1/55
+* `/{scripture_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a line in the language specified, defaults to 1/1/55
 * `/melody` - Gives back a list of all the melodies
 * `/melody/{id?}` - Gives back the melody specified, defaults to 1
 * `/author` - Gives back a list of all the authors

@@ -1,6 +1,6 @@
 <?php
 
-class PageRoutesTest extends TestCase {
+class GeneralRoutesTest extends TestCase {
 
 	/**
 	 * Test that page routes are returning expected values

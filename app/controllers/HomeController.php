@@ -15,6 +15,8 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	// General Routes
+
 	public $about = Array('name'=>'GurbaniDB','version'=>'2.1');
 
 	public function showHome()
@@ -27,100 +29,7 @@ class HomeController extends BaseController {
 		return Response::json($this->about);
 	}
 
-	public function showScripturePage($page_id = 1)
-	{
-		$data = Scripture::page($page_id)->get();
-
-		$this->throwError($data);
-
-		return Response::json($data);
-	}
-
-	public function showScriptureHymn($hymn_id = 1)
-	{
-		$data = Scripture::hymn($hymn_id)->get();
-
-		$this->throwError($data);
-		
-		return Response::json($data);
-	}
-
-	public function showScriptureLine($id = 1)
-	{
-		$data = Scripture::line($id)->firstOrFail();
-
-		return Response::json($data);
-	}
-
-	public function showTranslationPage($page_id = 1, $language_id = 1)
-	{
-		$data = Scripture::page($page_id)->get();
-
-		$this->throwError($data);
-
-		foreach($data as $line) {
-			$line['translation'] = Translation::only($line->id,$language_id)->firstOrFail()->toArray();
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTranslationHymn($hymn_id = 1, $language_id = 1)
-	{
-		$data = Scripture::hymn($hymn_id)->get();
-
-		$this->throwError($data);
-
-		foreach($data as $line) {
-			$line['translation'] = Translation::only($line->id,$language_id)->firstOrFail()->toArray();
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTranslationLine($scripture_id = 1, $language_id = 1)
-	{
-		$data = Translation::line($scripture_id,$language_id)->get();
-
-		$this->throwError($data);
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationPage($page_id = 1, $language_id = 55)
-	{
-		$data = Scripture::page($page_id)->get();
-
-		$this->throwError($data);
-
-		foreach($data as $line) {
-			$line['transliteration'] = Transliteration::only($line->id,$language_id)->firstOrFail()->toArray();
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationHymn($hymn_id = 1, $language_id = 55)
-	{
-		$data = Scripture::hymn($hymn_id)->get();
-
-		$this->throwError($data);
-
-		foreach($data as $line) {
-			$line['transliteration'] = Transliteration::only($line->id,$language_id)->firstOrFail()->toArray();
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationLine($scripture_id = 1, $language_id = 55)
-	{
-		$data = Transliteration::line($scripture_id,$language_id)->get();
-
-		$this->throwError($data);
-		
-		return Response::json($data);
-	}
+	// Meta API Routes
 
 	public function showMelodies()
 	{
@@ -170,11 +79,53 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
+	// Main API Routes
+
+	public function showAllPage($page_id = 1, $translation = 1, $transliteration = 55)
+	{
+		$data = Scripture::page($page_id)->get();
+
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showAllHymn($hymn_id = 1, $translation = 1, $transliteration = 55)
+	{
+		$data = Scripture::hymn($hymn_id)->get();
+
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showAllLine($scripture_id = 1, $translation = 1, $transliteration = 55)
+	{
+		$data = Scripture::line($scripture_id)->firstOrFail();
+
+		$data['translation'] = Translation::only($data->id,$translation)->firstOrFail()->toArray();
+		$data['transliteration'] = Transliteration::only($data->id,$transliteration)->firstOrFail()->toArray();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
 	private function throwError($data)
 	{
 		if(count($data) === 0) {
 			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
 		}
+	
 	}
-
 }

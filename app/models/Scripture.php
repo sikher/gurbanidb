@@ -29,6 +29,6 @@ class Scripture extends Eloquent
 
 	public function scopeLine($query, $input)
 	{
-		return $query->with('melody','author','language')->where('line', '=', $input);
+		return $query->with('melody','author','language')->where('id', '=', $input);
 	}
 }
