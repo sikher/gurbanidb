@@ -17,18 +17,33 @@ class Scripture extends Eloquent
 		return $this->belongsTo('Language');
 	}
 
-	public function scopePage($query, $input)
+	public function scopePage($query, $page)
 	{
-		return $query->with('melody','author','language')->where('page', '=', $input);
+		return $query->with('melody','author','language')->where('page', '=', $page);
 	}
 
-	public function scopeHymn($query, $input)
+	public function scopeHymn($query, $hymn)
 	{
-		return $query->with('melody','author','language')->where('hymn', '=', $input);
+		return $query->with('melody','author','language')->where('hymn', '=', $hymn);
 	}
 
-	public function scopeLine($query, $input)
+	public function scopeLine($query, $scripture_id)
 	{
-		return $query->with('melody','author','language')->where('id', '=', $input);
+		return $query->with('melody','author','language')->where('id', '=', $scripture_id);
+	}
+
+	public function scopeSearchFirstLettersStart($query, $search, $offset)
+	{
+		return $query->with('melody','author','language')->where('search', 'like', "{$search}%")->skip($offset)->take(10);
+	}
+
+	public function scopeSearchFirstLettersAnywhere($query, $search, $offset)
+	{
+		return $query->with('melody','author','language')->where('search', 'like', "%{$search}%")->skip($offset)->take(10);
+	}
+
+	public function scopeSearchWords($query, $search, $offset)
+	{
+		return $query->with('melody','author','language')->where('scripture', 'like', "%{$search}%")->skip($offset)->take(10);
 	}
 }

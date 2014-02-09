@@ -75,24 +75,28 @@ If everything is setup right, you should see something like:
 
 	....................................
 
-	Time: 1.86 seconds, Memory: 40.25Mb
+	Time: 2.57 seconds, Memory: 53.75Mb
 
-	OK (36 tests, 36 assertions)
+	OK (51 tests, 51 assertions)
 
 ## API Routes
 
 Below is a list of all the API routes supported in this application, which you can also find in `app/routes.php`:
-* `/about` - Gives version number of API
-* `/page/{page_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a page in the language specified, defaults to 1/1/55
-* `/hymn/{hymn_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a hymn in the language specified, defaults to 1/1/55
-* `/{scripture_id?}/{translation?}/{transliteration?}` - Gives back the page, translation and transliteration of a line in the language specified, defaults to 1/1/55
+* `/search/{query?}/{offset?}` - Gives back the first 10 search results by __first letters from start__ for the scripture, defaults to (empty string)/0
+* `/search/1/{query?}/{offset?}` - Gives back the first 10 search results by __first letters anywhere__ for the scripture, defaults to (empty string)/0
+* `/search/2/{query?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the scripture, defaults to (empty string)/0
+* `/search/3/{query?}/{language?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the translation, defaults to (empty string)/13 (English)/0
+* `/search/4/{query?}/{language?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the transliteration, defaults to (empty string)/69 (Latin)/0
+* `/page/{page_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a page in the language specified, defaults to 1/13 (English)/69 (Latin)
+* `/hymn/{hymn_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a hymn in the language specified, defaults to 1/13 (English)/69 (Latin)
+* `/{scripture_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a line in the language specified, defaults to 1/13 (English)/69 (Latin)
 * `/melody` - Gives back a list of all the melodies
 * `/melody/{id?}` - Gives back the melody specified, defaults to 1
 * `/author` - Gives back a list of all the authors
 * `/author/{id?}` - Gives back the author specified, defaults to 1
 * `/language` - Gives back a list of all the languages
 * `/language/{id?}` - Gives back the language specified, defaults to 1
+* `/about` - Gives version number of API
 
 ## To Do
-* Add ability to search by first letter, which returns line, hymn and page ids for each search
 * Add in some logic to track the usage of each endpoint

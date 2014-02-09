@@ -40,9 +40,9 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
-	public function showMelody($id = 1)
+	public function showMelody($melody_id = 1)
 	{
-		$data = Melody::line($id)->firstOrFail();
+		$data = Melody::line($melody_id)->firstOrFail();
 
 		return Response::json($data);
 	}
@@ -56,9 +56,9 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
-	public function showAuthor($id = 1)
+	public function showAuthor($author_id = 1)
 	{
-		$data = Author::line($id)->firstOrFail();
+		$data = Author::line($author_id)->firstOrFail();
 
 		return Response::json($data);
 	}
@@ -72,18 +72,65 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
-	public function showLanguage($id = 1)
+	public function showLanguage($language_id = 1)
 	{
-		$data = Language::line($id)->firstOrFail();
+		$data = Language::line($language_id)->firstOrFail();
 
 		return Response::json($data);
 	}
+
+	// Search API Routes
+
+	public function showSearchScriptureFirstLettersStart($search = '', $offset = 0)
+	{
+		$data = Scripture::searchfirstlettersstart($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchScriptureFirstLettersAnywhere($search = '', $offset = 0)
+	{
+		$data = Scripture::searchfirstlettersanywhere($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchScriptureWords($search = '', $offset = 0)
+	{
+		$data = Scripture::searchwords($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchTranslationWords($search = '', $translation = 13, $offset = 0)
+	{
+		$data = Translation::searchwords($search, $translation, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchTransliterationWords($search = '', $transliteration = 69, $offset = 0)
+	{
+		$data = Transliteration::searchwords($search, $transliteration, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}	
 
 	// Main API Routes
 
-	public function showAllPage($page_id = 1, $translation = 1, $transliteration = 55)
+	public function showAllPage($page = 1, $translation = 13, $transliteration = 69)
 	{
-		$data = Scripture::page($page_id)->get();
+		$data = Scripture::page($page)->get();
 
 		foreach($data as $line) {
 			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
@@ -95,9 +142,9 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
-	public function showAllHymn($hymn_id = 1, $translation = 1, $transliteration = 55)
+	public function showAllHymn($hymn = 1, $translation = 13, $transliteration = 69)
 	{
-		$data = Scripture::hymn($hymn_id)->get();
+		$data = Scripture::hymn($hymn)->get();
 
 		foreach($data as $line) {
 			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
@@ -109,7 +156,7 @@ class HomeController extends BaseController {
 		return Response::json($data);
 	}
 
-	public function showAllLine($scripture_id = 1, $translation = 1, $transliteration = 55)
+	public function showAllLine($scripture_id = 1, $translation = 13, $transliteration = 69)
 	{
 		$data = Scripture::line($scripture_id)->firstOrFail();
 

@@ -33,6 +33,18 @@ Route::get('language', 'HomeController@showLanguages');
 
 Route::get('language/{id?}', 'HomeController@showLanguage');
 
+// Search API Routes
+
+Route::get('search/1/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersAnywhere');
+
+Route::get('search/2/{search?}/{offset?}', 'HomeController@showSearchScriptureWords');
+
+Route::get('search/3/{search?}/{language?}/{offset?}', 'HomeController@showSearchTranslationWords');
+
+Route::get('search/4/{search?}/{language?}/{offset?}', 'HomeController@showSearchTransliterationWords');
+
+Route::get('search/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersStart');
+
 // Main API Routes
 
 Route::get('page/{page_id?}/{translation?}/{transliteration?}', 'HomeController@showAllPage');

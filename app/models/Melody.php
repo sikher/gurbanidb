@@ -4,8 +4,8 @@ class Melody extends Eloquent
 {
 	protected $table = 'melodies';
 
-	public function scopeLine($query, $input)
+	public function scopeLine($query, $melody_id)
 	{
-		return $query->where('id', '=', $input);
+		return $query->where('id', '=', $melody_id);
 	}
 }
