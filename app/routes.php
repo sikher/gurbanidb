@@ -19,26 +19,6 @@ Route::get('/', 'HomeController@showHome');
 
 Route::get('about', 'HomeController@showAbout');
 
-// Main API Routes
-
-Route::get('scripture/page/{page_id?}', 'HomeController@showScripturePage');
-
-Route::get('scripture/hymn/{hymn_id?}', 'HomeController@showScriptureHymn');
-
-Route::get('scripture/{id?}', 'HomeController@showScriptureLine');
-
-Route::get('translation/page/{page_id?}/{language_id?}', 'HomeController@showTranslationPage');
-
-Route::get('translation/hymn/{hymn_id?}/{language_id?}', 'HomeController@showTranslationHymn');
-
-Route::get('translation/{scripture_id?}/{language_id?}', 'HomeController@showTranslationLine');
-
-Route::get('transliteration/page/{page_id?}/{language_id?}', 'HomeController@showTransliterationPage');
-
-Route::get('transliteration/hymn/{hymn_id?}/{language_id?}', 'HomeController@showTransliterationHymn');
-
-Route::get('transliteration/{scripture_id?}/{language_id?}', 'HomeController@showTransliterationLine');
-
 // Meta API Routes
 
 Route::get('melody', 'HomeController@showMelodies');
@@ -52,6 +32,26 @@ Route::get('author/{id?}', 'HomeController@showAuthor');
 Route::get('language', 'HomeController@showLanguages');
 
 Route::get('language/{id?}', 'HomeController@showLanguage');
+
+// Search API Routes
+
+Route::get('search/1/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersAnywhere');
+
+Route::get('search/2/{search?}/{offset?}', 'HomeController@showSearchScriptureWords');
+
+Route::get('search/3/{search?}/{language?}/{offset?}', 'HomeController@showSearchTranslationWords');
+
+Route::get('search/4/{search?}/{language?}/{offset?}', 'HomeController@showSearchTransliterationWords');
+
+Route::get('search/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersStart');
+
+// Main API Routes
+
+Route::get('page/{page_id?}/{translation?}/{transliteration?}', 'HomeController@showAllPage');
+
+Route::get('hymn/{hymn_id?}/{translation?}/{transliteration?}', 'HomeController@showAllHymn');
+
+Route::get('{scripture_id?}/{translation?}/{transliteration?}', 'HomeController@showAllLine');
 
 // Error Routes
 

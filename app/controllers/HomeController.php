@@ -15,6 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	// General Routes
+
+	public $about = Array('name'=>'GurbaniDB','version'=>'2.1');
+
 	public function showHome()
 	{
 		return View::make('index');
@@ -22,141 +26,23 @@ class HomeController extends BaseController {
 
 	public function showAbout()
 	{
-		return Response::json(Array('name'=>'GurbaniDB','version'=>'2.0'));
+		return Response::json($this->about);
 	}
 
-	public function showScripturePage($page_id = 1)
-	{
-		$data = Scripture::where('page', '=', $page_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		return Response::json($data);
-	}
-
-	public function showScriptureHymn($hymn_id = 1)
-	{
-		// Return the given hymn in the scripture
-		$data = Scripture::where('hymn', '=', $hymn_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		foreach($data as $hymn){
-			$hymn['melody'] = json_decode((String)Scripture::find($hymn->id)->melody);
-			$hymn['author'] = json_decode((String)Scripture::find($hymn->id)->author);
-			$hymn['language'] = json_decode((String)Scripture::find($hymn->id)->language);
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showScriptureLine($id = 1)
-	{
-		// Return the given line in the scripture
-		$data = Scripture::where('id', '=', $id)->firstOrFail();
-		$data['melody'] = json_decode((String)Scripture::find($id)->melody);
-		$data['author'] = json_decode((String)Scripture::find($id)->author);
-		$data['language'] = json_decode((String)Scripture::find($id)->language);
-
-		return Response::json($data);
-	}
-
-	public function showTranslationPage($page_id = 1, $language_id = 1)
-	{
-		$data = Scripture::where('page', '=', $page_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		foreach($data as $line) {
-			$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTranslationHymn($hymn_id = 1, $language_id = 1)
-	{
-		$data = Scripture::where('hymn', '=', $hymn_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		foreach($data as $line) {
-			$line['translation'] = json_decode((String)Translation::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTranslationLine($scripture_id = 1, $language_id = 1)
-	{
-		$data = Translation::whereRaw("scripture_id = {$scripture_id} and language_id = {$language_id}")->firstOrFail();
-		$data['scripture'] = json_decode((String)Translation::find($data->id)->scripture);
-		$data['language'] = json_decode((String)Translation::find($data->id)->language);
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationPage($page_id = 1, $language_id = 55)
-	{
-		$data = Scripture::where('page', '=', $page_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		foreach($data as $line) {
-			$line['transliteration'] = json_decode((String)Transliteration::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationHymn($hymn_id = 1, $language_id = 55)
-	{
-		$data = Scripture::where('hymn', '=', $hymn_id)->get();
-
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
-
-		foreach($data as $line) {
-			$line['transliteration'] = json_decode((String)Transliteration::whereRaw("scripture_id = {$line->id} and language_id = {$language_id}")->firstOrFail());
-		}
-		
-		return Response::json($data);
-	}
-
-	public function showTransliterationLine($scripture_id = 1, $language_id = 55)
-	{
-		$data = Transliteration::whereRaw("scripture_id = {$scripture_id} and language_id = {$language_id}")->firstOrFail();
-		$data['scripture'] = json_decode((String)Transliteration::find($data->id)->scripture);
-		$data['language'] = json_decode((String)Transliteration::find($data->id)->language);
-		
-		return Response::json($data);
-	}
+	// Meta API Routes
 
 	public function showMelodies()
 	{
 		$data = Melody::all();
 
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
+		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showMelody($id = 1)
+	public function showMelody($melody_id = 1)
 	{
-		$data = Melody::where('id', '=', $id)->firstOrFail();
+		$data = Melody::line($melody_id)->firstOrFail();
 
 		return Response::json($data);
 	}
@@ -165,16 +51,14 @@ class HomeController extends BaseController {
 	{
 		$data = Author::all();
 
-		if(count($data) === 0) {
-			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-		}
+		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showAuthor($id = 1)
+	public function showAuthor($author_id = 1)
 	{
-		$data = Author::where('id', '=', $id)->firstOrFail();
+		$data = Author::line($author_id)->firstOrFail();
 
 		return Response::json($data);
 	}
@@ -183,18 +67,112 @@ class HomeController extends BaseController {
 	{
 		$data = Language::all();
 
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showLanguage($language_id = 1)
+	{
+		$data = Language::line($language_id)->firstOrFail();
+
+		return Response::json($data);
+	}
+
+	// Search API Routes
+
+	public function showSearchScriptureFirstLettersStart($search = '', $offset = 0)
+	{
+		$data = Scripture::searchfirstlettersstart($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchScriptureFirstLettersAnywhere($search = '', $offset = 0)
+	{
+		$data = Scripture::searchfirstlettersanywhere($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchScriptureWords($search = '', $offset = 0)
+	{
+		$data = Scripture::searchwords($search, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchTranslationWords($search = '', $translation = 13, $offset = 0)
+	{
+		$data = Translation::searchwords($search, $translation, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showSearchTransliterationWords($search = '', $transliteration = 69, $offset = 0)
+	{
+		$data = Transliteration::searchwords($search, $transliteration, $offset)->get();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}	
+
+	// Main API Routes
+
+	public function showAllPage($page = 1, $translation = 13, $transliteration = 69)
+	{
+		$data = Scripture::page($page)->get();
+
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showAllHymn($hymn = 1, $translation = 13, $transliteration = 69)
+	{
+		$data = Scripture::hymn($hymn)->get();
+
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	public function showAllLine($scripture_id = 1, $translation = 13, $transliteration = 69)
+	{
+		$data = Scripture::line($scripture_id)->firstOrFail();
+
+		$data['translation'] = Translation::only($data->id,$translation)->firstOrFail()->toArray();
+		$data['transliteration'] = Transliteration::only($data->id,$transliteration)->firstOrFail()->toArray();
+
+		$this->throwError($data);
+
+		return Response::json($data);
+	}
+
+	private function throwError($data)
+	{
 		if(count($data) === 0) {
 			throw new Illuminate\Database\Eloquent\ModelNotFoundException;
 		}
-
-		return Response::json($data);
+	
 	}
-
-	public function showLanguage($id = 1)
-	{
-		$data = Language::where('id', '=', $id)->firstOrFail();
-
-		return Response::json($data);
-	}
-
 }
