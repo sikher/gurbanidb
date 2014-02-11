@@ -98,5 +98,24 @@ Below is a list of all the API routes supported in this application, which you c
 * `/language/{id?}` - Gives back the language specified, defaults to 1
 * `/about` - Gives version number of API
 
+__Please Note:__ Some entries in our database contain two lines in the same entry and therefore will not show up in search by first letters from start (/search/). To find these you may search by first letters anywhere (/search/1/)
+
+## Version History
+### 2.1
+* Database: Added a search column in Scriptures to enable first letter search
+* Database: Changed all the table names to better follow the Laravel convention of pluralized table names
+* Database: Fixed - hymn/3607 was wrongly attributed to Poet Balh when it should have been Poet Kirat
+* Totally re-designed the API with the user and developer in mind
+* Now combined results from all the tables including scripture, translation and transliteration are given
+* Added a whole new Search API which gives results based upon first letter or word search from scriptures, translations or transliterations
+* Generally cleaned up the code base to be more maintainable and understandable for the future
+
+### 2.0
+* Database: Getting rid of old columns which are no longer required
+* Database: Standardizing and simplifying the table and column names
+* Database: Moving to just one language table
+* Giving access to individual tables through a simple API e.g. /scripture/page/{page_id?} and /translation/hymn/{hymn_id?}/{language_id?}
+
 ## To Do
+* Database: Fix Unicode issues with special characters
 * Add in some logic to track the usage of each endpoint
