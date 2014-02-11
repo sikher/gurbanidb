@@ -29,9 +29,9 @@
 	  			</div>
 	  			<div class="navbar-collapse collapse">
 	  				<ul class="nav navbar-nav">
-	  					<li><a href="/scripture">Scripture</a></li>
-	  					<li><a href="/translation">Translation</a></li>
-	  					<li><a href="/transliteration">Transliteration</a></li>
+	  					<li><a href="/search">Search</a></li>
+	  					<li><a href="/page">Page</a></li>
+	  					<li><a href="/hymn">Hymn</a></li>
 	  					<li class="dropdown">
 	  						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Other <b class="caret"></b></a>
 	  						<ul class="dropdown-menu">

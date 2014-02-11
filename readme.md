@@ -108,6 +108,8 @@ __Please Note:__ Some entries in our database contain two lines in the same entr
 * Totally re-designed the API with the user and developer in mind
 * Now combined results from all the tables including scripture, translation and transliteration are given
 * Added a whole new Search API which gives results based upon first letter or word search from scriptures, translations or transliterations
+* Changed the default translation to English and transliteration to Latin
+* Updated all the test coverage
 * Generally cleaned up the code base to be more maintainable and understandable for the future
 
 ### 2.0
