@@ -90,6 +90,7 @@ Below is a list of all the API routes supported in this application, which you c
 * `/page/{page_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a page in the language specified, defaults to 1/13 (English)/69 (Latin)
 * `/hymn/{hymn_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a hymn in the language specified, defaults to 1/13 (English)/69 (Latin)
 * `/{scripture_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a line in the language specified, defaults to 1/13 (English)/69 (Latin)
+* * `/random/{type?}/{translation?}/{transliteration?}` - Gives back either a page (type 1) or a hymn (type 2) with the scripture, translation and transliteration in the language specified, defaults to 1 (Page)/13 (English)/69 (Latin)
 * `/melody` - Gives back a list of all the melodies
 * `/melody/{id?}` - Gives back the melody specified, defaults to 1
 * `/author` - Gives back a list of all the authors
@@ -98,7 +99,7 @@ Below is a list of all the API routes supported in this application, which you c
 * `/language/{id?}` - Gives back the language specified, defaults to 1
 * `/about` - Gives version number of API
 
-__Please Note:__ Some entries in our database contain two lines in the same entry and therefore will not show up in search by first letters from start (/search/). To find these you may search by first letters anywhere (/search/1/)
+__Please Note:__ Some entries in our database contain two lines in the same entry and therefore will not show up in search by __first letters from start__ (/search/). To find these you may search by __first letters anywhere__ (/search/1/)
 
 ## Version History
 ### 2.1
@@ -108,6 +109,7 @@ __Please Note:__ Some entries in our database contain two lines in the same entr
 * Totally re-designed the API with the user and developer in mind
 * Now combined results from all the tables including scripture, translation and transliteration are given
 * Added a whole new Search API which gives results based upon first letter or word search from scriptures, translations or transliterations
+* Added random search for page and hymn (also called Hukamnama)
 * Changed the default translation to English and transliteration to Latin
 * Updated all the test coverage
 * Generally cleaned up the code base to be more maintainable and understandable for the future

@@ -51,6 +51,8 @@ Route::get('page/{page_id?}/{translation?}/{transliteration?}', 'HomeController@
 
 Route::get('hymn/{hymn_id?}/{translation?}/{transliteration?}', 'HomeController@showAllHymn');
 
+Route::get('random/{type?}/{translation?}/{transliteration?}', 'HomeController@showRandom');
+
 Route::get('{scripture_id?}/{translation?}/{transliteration?}', 'HomeController@showAllLine');
 
 // Error Routes

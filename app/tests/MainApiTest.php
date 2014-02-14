@@ -186,4 +186,70 @@ class MainApiTest extends TestCase {
     	$this->assertResponseStatus(404);
 	}
 
+	public function testAllReturnsRandomByDefault()
+	{
+    	$this->call('GET', 'random');
+    	$this->assertResponseOk();
+	}
+
+	public function testAllReturnsRandomWithType1Parameter()
+	{
+    	$this->call('GET', 'random/1');
+    	$this->assertResponseOk();
+	}
+
+	public function testAllReturnsRandomWithType2Parameter()
+	{
+    	$this->call('GET', 'random/2');
+    	$this->assertResponseOk();
+	}
+
+	public function testAllReturnsRandomWithType1AndTranslationParameters()
+	{
+    	$this->call('GET', 'random/1/1');
+    	$this->assertResponseOk();
+	}
+
+	public function testAllReturnsRandomWithType1TranslationAndTransliterationParameters()
+	{
+    	$this->call('GET', 'random/1/1/55');
+    	$this->assertResponseOk();
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testAllReturnsRandom404WithInvalidTypeParameters()
+	{
+    	$this->call('GET', 'random/0');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testAllReturnsRandom404WithInvalidTranslationParameters()
+	{
+    	$this->call('GET', 'random/1/0');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testAllReturnsRandom404WithInvalidTransliterationParameters()
+	{
+    	$this->call('GET', 'random/1/1/54');
+    	$this->assertResponseStatus(404);
+	}
+
+	/**
+	* @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+	*/
+	public function testAllReturnsRandom404WithAllInvalidParameters()
+	{
+    	$this->call('GET', 'random/0/0/0');
+    	$this->assertResponseStatus(404);
+	}
+
 }

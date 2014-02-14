@@ -32,8 +32,9 @@
 	  					<li><a href="/search">Search</a></li>
 	  					<li><a href="/page">Page</a></li>
 	  					<li><a href="/hymn">Hymn</a></li>
+	  					<li><a href="/random">Random</a></li>
 	  					<li class="dropdown">
-	  						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Other <b class="caret"></b></a>
+	  						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Meta <b class="caret"></b></a>
 	  						<ul class="dropdown-menu">
 	  							<li><a href="/author">Author</a></li>
 	  							<li><a href="/melody">Melody</a></li>

@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	// General Routes
 
-	public $about = Array('name'=>'GurbaniDB','version'=>'2.1');
+	public $about = array('name'=>'GurbaniDB','version'=>'2.1');
 
 	public function showHome()
 	{
@@ -166,6 +166,26 @@ class HomeController extends BaseController {
 		$this->throwError($data);
 
 		return Response::json($data);
+	}
+
+	public function showRandom($type = 1, $translation = 13, $transliteration = 69)
+	{
+		$random_page = rand(1,1430);
+		$random_hymn = rand(1,3620);
+
+		// Page
+		if($type == 1)
+		{
+			return $this->showAllPage($random_page, $translation, $transliteration);
+		}
+
+		// Hymn
+		if($type == 2)
+		{
+			return $this->showAllHymn($random_hymn, $translation, $transliteration);
+		}
+
+		return $this->throwError(array());
 	}
 
 	private function throwError($data)
