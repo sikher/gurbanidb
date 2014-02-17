@@ -1,6 +1,6 @@
 ## GurbaniDB API
 
-Version: 2.1
+Version: 2.2
 
 Welcome to the GurbaniDB API for the Sikh Scriptures developed using the popular Laravel PHP Framework. We decided to take advantage of Laravel's fantastic ORM to rapidly develop this API.
 
@@ -82,11 +82,11 @@ If everything is setup right, you should see something like:
 ## API Routes
 
 Below is a list of all the API routes supported in this application, which you can also find in `app/routes.php`:
-* `/search/{query?}/{offset?}` - Gives back the first 10 search results by __first letters from start__ for the scripture, defaults to (empty string)/0
-* `/search/1/{query?}/{offset?}` - Gives back the first 10 search results by __first letters anywhere__ for the scripture, defaults to (empty string)/0
-* `/search/2/{query?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the scripture, defaults to (empty string)/0
-* `/search/3/{query?}/{language?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the translation, defaults to (empty string)/13 (English)/0
-* `/search/4/{query?}/{language?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the transliteration, defaults to (empty string)/69 (Latin)/0
+* `/search/{query?}/{translation?}/{transliteration?}/{offset?}` - Gives back the first 10 search results by __first letters from start__ for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0
+* `/search/1/{query?}/{translation?}/{transliteration?}/{offset?}` - Gives back the first 10 search results by __first letters anywhere__ for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0
+* `/search/2/{query?}/{translation?}/{transliteration?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0
+* `/search/3/{query?}/{translation?}/{transliteration?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the translation, defaults to (empty string)/13 (English)/0
+* `/search/4/{query?}/{translation?}/{transliteration?}/{offset?}` - Gives back the first 10 search results by __words anywhere__ for the transliteration, defaults to (empty string)/69 (Latin)/0
 * `/page/{page_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a page in the language specified, defaults to 1/13 (English)/69 (Latin)
 * `/hymn/{hymn_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a hymn in the language specified, defaults to 1/13 (English)/69 (Latin)
 * `/{scripture_id?}/{translation?}/{transliteration?}` - Gives back the scripture, translation and transliteration of a line in the language specified, defaults to 1/13 (English)/69 (Latin)
@@ -102,6 +102,10 @@ Below is a list of all the API routes supported in this application, which you c
 __Please Note:__ Some entries in our database contain two lines in the same entry and therefore will not show up in search by __first letters from start__ (/search/). To find these you may search by __first letters anywhere__ (/search/1/)
 
 ## Version History
+### 2.2
+* Database: Changed column scripture in table scriptures to text, for better consistency
+* Standardized Search API for better consistency
+
 ### 2.1
 * Database: Added a search column in Scriptures to enable first letter search
 * Database: Changed all the table names to better follow the Laravel convention of pluralized table names

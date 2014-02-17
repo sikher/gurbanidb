@@ -35,15 +35,17 @@ Route::get('language/{id?}', 'HomeController@showLanguage');
 
 // Search API Routes
 
-Route::get('search/1/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersAnywhere');
+Route::get('search/0/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersStart');
 
-Route::get('search/2/{search?}/{offset?}', 'HomeController@showSearchScriptureWords');
+Route::get('search/1/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersAnywhere');
 
-Route::get('search/3/{search?}/{language?}/{offset?}', 'HomeController@showSearchTranslationWords');
+Route::get('search/2/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchScriptureWords');
 
-Route::get('search/4/{search?}/{language?}/{offset?}', 'HomeController@showSearchTransliterationWords');
+Route::get('search/3/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchTranslationWords');
 
-Route::get('search/{search?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersStart');
+Route::get('search/4/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchTransliterationWords');
+
+Route::get('search/{search?}/{translation?}/{transliteration?}/{offset?}', 'HomeController@showSearchScriptureFirstLettersStart');
 
 // Main API Routes
 
