@@ -77,7 +77,7 @@ If everything is setup right, you should see something like:
 
 	Time: 2.57 seconds, Memory: 53.75Mb
 
-	OK (51 tests, 51 assertions)
+	OK (60 tests, 60 assertions)
 
 ## API Routes
 

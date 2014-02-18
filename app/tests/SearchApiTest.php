@@ -23,7 +23,7 @@ class SearchApiTest extends TestCase {
 	*/
 	public function testSearchScriptureFirstLettersStartWithIncorrectParameters()
 	{
-    	$this->call('GET', '/search/0');
+    	$this->call('GET', '/search/5');
     	$this->assertResponseStatus(404);
 	}
 
