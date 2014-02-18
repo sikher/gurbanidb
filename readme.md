@@ -104,6 +104,7 @@ __Please Note:__ Some entries in our database contain two lines in the same entr
 ## Version History
 ### 2.2
 * Database: Changed column scripture in table scriptures to text, for better consistency
+* Database: Correcting English translation for scripture_id 9897, from "...his is what I have seen..." to "...this is what I have seen..." 
 * Standardized Search API for better consistency
 
 ### 2.1
