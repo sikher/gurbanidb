@@ -23,7 +23,7 @@ class SearchApiTest extends TestCase {
 	*/
 	public function testSearchScriptureFirstLettersStartWithIncorrectParameters()
 	{
-    	$this->call('GET', '/search/0');
+    	$this->call('GET', '/search/5');
     	$this->assertResponseStatus(404);
 	}
 
@@ -77,7 +77,7 @@ class SearchApiTest extends TestCase {
 
 	public function testSearchTranslationWordsWithParameters()
 	{
-    	$this->call('GET', '/search/3/God/13/10');
+    	$this->call('GET', '/search/3/God/13/69/10');
     	$this->assertResponseOk();
 	}
 
@@ -98,7 +98,7 @@ class SearchApiTest extends TestCase {
 
 	public function testSearchTransliterationWordsWithParameters()
 	{
-    	$this->call('GET', '/search/4/nanak/69/10');
+    	$this->call('GET', '/search/4/nanak/13/69/10');
     	$this->assertResponseOk();
 	}
 

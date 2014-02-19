@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	// General Routes
 
-	public $about = array('name'=>'GurbaniDB','version'=>'2.1');
+	public $about = array('name'=>'GurbaniDB','version'=>'2.2');
 
 	public function showHome()
 	{
@@ -81,45 +81,68 @@ class HomeController extends BaseController {
 
 	// Search API Routes
 
-	public function showSearchScriptureFirstLettersStart($search = '', $offset = 0)
+	public function showSearchScriptureFirstLettersStart($search = '', $translation = 13, $transliteration = 69, $offset = 0)
 	{
 		$data = Scripture::searchfirstlettersstart($search, $offset)->get();
 
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
 		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showSearchScriptureFirstLettersAnywhere($search = '', $offset = 0)
+	public function showSearchScriptureFirstLettersAnywhere($search = '', $translation = 13, $transliteration = 69, $offset = 0)
 	{
 		$data = Scripture::searchfirstlettersanywhere($search, $offset)->get();
 
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
 		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showSearchScriptureWords($search = '', $offset = 0)
+	public function showSearchScriptureWords($search = '', $translation = 13, $transliteration = 69, $offset = 0)
 	{
 		$data = Scripture::searchwords($search, $offset)->get();
 
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->id,$translation)->firstOrFail()->toArray();
+			$line['transliteration'] = Transliteration::only($line->id,$transliteration)->firstOrFail()->toArray();
+		}
+
 		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showSearchTranslationWords($search = '', $translation = 13, $offset = 0)
+	public function showSearchTranslationWords($search = '', $translation = 13, $transliteration = 69, $offset = 0)
 	{
 		$data = Translation::searchwords($search, $translation, $offset)->get();
 
+		foreach($data as $line) {
+			$line['transliteration'] = Transliteration::only($line->scripture_id,$transliteration)->firstOrFail()->toArray();
+		}
+
 		$this->throwError($data);
 
 		return Response::json($data);
 	}
 
-	public function showSearchTransliterationWords($search = '', $transliteration = 69, $offset = 0)
+	public function showSearchTransliterationWords($search = '', $translation = 13, $transliteration = 69, $offset = 0)
 	{
 		$data = Transliteration::searchwords($search, $transliteration, $offset)->get();
+
+		foreach($data as $line) {
+			$line['translation'] = Translation::only($line->scripture_id,$translation)->firstOrFail()->toArray();
+		}
 
 		$this->throwError($data);
 

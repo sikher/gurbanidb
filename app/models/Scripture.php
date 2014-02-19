@@ -44,6 +44,6 @@ class Scripture extends Eloquent
 
 	public function scopeSearchWords($query, $search, $offset)
 	{
-		return $query->with('melody','author','language')->where('scripture', 'like', "%{$search}%")->skip($offset)->take(10);
+		return $query->with('melody','author','language')->where('text', 'like', "%{$search}%")->skip($offset)->take(10);
 	}
 }
