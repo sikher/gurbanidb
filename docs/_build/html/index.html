@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GurbaniDB Documentation &mdash; gurbanidb 2.2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="gurbanidb 2.2.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">gurbanidb 2.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gurbanidb-documentation">
+<h1>GurbaniDB Documentation<a class="headerlink" href="#gurbanidb-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the GurbaniDB API for the Sikh Scriptures developed using the popular Laravel PHP Framework. We decided to take advantage of Laravel&#8217;s fantastic ORM to rapidly develop this API.</p>
+<p>We decided to keep this API version (2.x) and the GurbaniDB database version (2.x) the same because they were developed together and are compatible with one another.</p>
+<p>GurbaniDB API Version 1.0, as used formerly in the GurbaniDB search engine, is now deprecated and we will no longer be supporting or documenting it.</p>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
+<div class="section" id="demo">
+<h1>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
+<p>The latest version of this repo is live at: <a class="reference external" href="http://api.sikher.com">http://api.sikher.com</a></p>
+</div>
+<div class="section" id="pre-requisites">
+<h1>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h1>
+<p>Before installing the GurbaniDB API, please ensure you have the following packages installed on your local machine or server.</p>
+<p>You may choose to use a software like WAMPP or XAMPP, or a package manager like Brew for Mac or APT for Linux, to install most of these dependencies for you:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://git-scm.com/downloads">Git</a></li>
+<li><a class="reference external" href="http://httpd.apache.org/download.cgi">Apache v2.2+</a> (with actions, rewrite &amp; php5 modules enabled)</li>
+<li><a class="reference external" href="http://dev.mysql.com/downloads/mysql/">MySQL 5.5+</a></li>
+<li><a class="reference external" href="http://www.php.net/manual/en/install.php">PHP 5.3.7+</a> (with mcrypt, mysql, mysqli, pdo, pdo_mysql &amp; json extensions enabled - check with <cite>phpinfo();</cite> command)</li>
+<li><a class="reference external" href="http://getcomposer.org/download/">Composer</a></li>
+<li><a class="reference external" href="http://www.phpmyadmin.net/home_page/downloads.php">PhpMyAdmin</a></li>
+</ul>
+<p>As well as this, you will need to know how to setup name-based Virtual Hosts or vhosts in Apache and how to edit your system&#8217;s hosts file.</p>
+<p>Finally, you will need to know some basics of how to use Terminal or the command-line.</p>
+</div>
+<div class="section" id="installing-the-api">
+<h1>Installing the API<a class="headerlink" href="#installing-the-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="download-the-repository">
+<h2>Download the Repository<a class="headerlink" href="#download-the-repository" title="Permalink to this headline">¶</a></h2>
+<p>Just use <tt class="docutils literal"><span class="pre">git</span></tt> to clone the ssh version:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone git@github.com:sikher/gurbanidb.git
+</pre></div>
+</div>
+<p><strong>Or</strong> use <tt class="docutils literal"><span class="pre">git</span></tt> to clone the https version:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/sikher/gurbanidb.git
+</pre></div>
+</div>
+<p><strong>Or</strong> download the .zip archive and unzip it:</p>
+<div class="highlight-python"><div class="highlight"><pre>https://github.com/sikher/gurbanidb/archive/master.zip
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-a-virtual-host-install-laravel">
+<h2>Setup a Virtual Host &amp; Install Laravel<a class="headerlink" href="#setup-a-virtual-host-install-laravel" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Please setup a vhost called <tt class="docutils literal"><span class="pre">api.dev</span></tt> (or a name of your choosing) to point to the directory where you just downloaded the GurbaniDB repository</li>
+<li>Now open <tt class="docutils literal"><span class="pre">Terminal</span></tt> or the command-line and use <tt class="docutils literal"><span class="pre">cd</span></tt> to navigate to the GurbaniDB repository. Then run the command <tt class="docutils literal"><span class="pre">php</span> <span class="pre">composer.phar</span> <span class="pre">install</span></tt> to install all the dependencies of the <a class="reference external" href="http://laravel.com/docs/installation">Laravel</a> PHP framework</li>
+<li>Open a browser and navigate to <tt class="docutils literal"><span class="pre">api.dev/</span></tt> to see if it loads the homepage. If not, check your Apache error log and double-check you installed all the pre-requisites properly.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="installing-the-gurbanidb-database">
+<h1>Installing the GurbaniDB Database<a class="headerlink" href="#installing-the-gurbanidb-database" title="Permalink to this headline">¶</a></h1>
+<p>We&#8217;ve made some awesome improvements in 2.x, compared to 1.0:</p>
+<ul class="simple">
+<li>Getting rid of old columns which are no longer required</li>
+<li>Standardizing and simplifying the table and column names</li>
+<li>Moving to just one language table</li>
+</ul>
+<p>These improvements should make this database easier to consume in software.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Download the GurbaniDB 2.x database here: <a class="reference external" href="http://www.sikher.com/sql/2.x/">http://www.sikher.com/sql/2.x/</a></li>
+<li>Make sure you first know the path to your MySQL command-line. On Windows, if you have XAMPP installed this may be: <tt class="docutils literal"><span class="pre">C:\xampp\mysql\bin\mysql.exe</span></tt>. On Linux, this will usually be just <tt class="docutils literal"><span class="pre">mysql</span></tt>.</li>
+<li>Make sure you know your MySQL username, password and hostname. If working locally, your hostname will usually just be <tt class="docutils literal"><span class="pre">localhost</span></tt>.</li>
+<li>Find out the link to your PhpMyAdmin installation. Again if using XAMPP, this will usually be <tt class="docutils literal"><span class="pre">http://localhost/phpmyadmin/</span></tt>.</li>
+</ol>
+</div>
+<div class="section" id="installing-gurbanidb">
+<h2>Installing GurbaniDB<a class="headerlink" href="#installing-gurbanidb" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Download and unzip the file <tt class="docutils literal"><span class="pre">gurbanidb_v2.zip</span></tt> which gives you all the tables you need WITH data</p>
+</li>
+<li><p class="first">Use <tt class="docutils literal"><span class="pre">phpmyadmin</span></tt> to create a new database with the collation <tt class="docutils literal"><span class="pre">utf8_unicode_ci</span></tt>. You can name the database anything you want, but a suggestion would be <tt class="docutils literal"><span class="pre">gurbanidb</span></tt>.</p>
+</li>
+<li><p class="first">Open up a new terminal or command prompt and <tt class="docutils literal"><span class="pre">cd</span></tt> into the directory your <tt class="docutils literal"><span class="pre">gurbanidb_v2.sql</span></tt> file is located in</p>
+</li>
+<li><dl class="first docutils">
+<dt>Then run the following command in the terminal or command prompt, replacing the values with your MySQL connection details (and using the path to mysql we defined earlier in the Setup):</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">mysql</span></tt> -u <tt class="docutils literal"><span class="pre">username</span></tt> -p``password`` -h <tt class="docutils literal"><span class="pre">hostname</span></tt> <tt class="docutils literal"><span class="pre">database</span></tt> &lt; gurbanidb_v2.sql</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>That&#8217;s it you&#8217;re done! Please check your database. It should have the following records:</dt>
+<dd><ul class="first simple">
+<li>authors - 38</li>
+<li>languages - 76</li>
+<li>melodies - 61</li>
+<li>scriptures - 60403</li>
+<li>translations - 3,201,359 (Divided by 60403 = 53 Translations)</li>
+<li>transliterations - 1,328,866 (Divided by 60403 = 22 Transliterations)</li>
+</ul>
+<p class="last">__Please Note:__ If you are upgrading from the 2.0 database to the current database you may also want to delete your old tables from your database. Since all the table names have changed in 2.1, your existing tables will not be overwritten, but the new API will only work against these new tables</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Go to <tt class="docutils literal"><span class="pre">./app/config/</span></tt> in your repository and <tt class="docutils literal"><span class="pre">mkdir</span></tt> &#8216;production&#8217;. Then <tt class="docutils literal"><span class="pre">cp</span></tt> the file <tt class="docutils literal"><span class="pre">database.php</span></tt> into the new production folder. Now update the database settings inside the following files:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">app/config/database.php</span></tt> - Default Database</li>
+<li><tt class="docutils literal"><span class="pre">app/config/local/database.php</span></tt> - Local Database</li>
+<li><tt class="docutils literal"><span class="pre">app/config/production/database.php</span></tt> - Production Database</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>The local and production environments are determined by the <tt class="docutils literal"><span class="pre">bootstrap/start.php</span></tt> file, so you will also have to modify this to your local and production server HTTP host names.</p>
+</div>
+</div>
+<div class="section" id="running-tests">
+<h1>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h1>
+<p>To run the unit tests simply navigate to the root of the directory in <cite>Terminal</cite> and use the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">phpunit</span>
+</pre></div>
+</div>
+<p>If everything is setup right, you should see something like:</p>
+<div class="highlight-python"><div class="highlight"><pre>PHPUnit 3.7.28 by Sebastian Bergmann.
+
+Configuration read from {/dir/to/application}/phpunit.xml
+
+....................................
+
+Time: 2.57 seconds, Memory: 53.75Mb
+
+OK (60 tests, 60 assertions)
+</pre></div>
+</div>
+</div>
+<div class="section" id="api-routes">
+<h1>API Routes<a class="headerlink" href="#api-routes" title="Permalink to this headline">¶</a></h1>
+<p>Below is a list of all the API routes supported in this application, which you can also find in <tt class="docutils literal"><span class="pre">app/routes.php</span></tt>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">/search/{query?}/{translation?}/{transliteration?}/{offset?}</span></tt> - Gives back the first 10 search results by __first letters from <a href="#id4"><span class="problematic" id="id5">start__</span></a> for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0</li>
+<li><tt class="docutils literal"><span class="pre">/search/1/{query?}/{translation?}/{transliteration?}/{offset?}</span></tt> - Gives back the first 10 search results by __first letters <a href="#id4"><span class="problematic" id="id6">anywhere__</span></a> for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0</li>
+<li><tt class="docutils literal"><span class="pre">/search/2/{query?}/{translation?}/{transliteration?}/{offset?}</span></tt> - Gives back the first 10 search results by __words <a href="#id4"><span class="problematic" id="id7">anywhere__</span></a> for the scripture, defaults to (empty string)/13 (English)/69 (Latin)/0</li>
+<li><tt class="docutils literal"><span class="pre">/search/3/{query?}/{translation?}/{transliteration?}/{offset?}</span></tt> - Gives back the first 10 search results by __words <a href="#id4"><span class="problematic" id="id8">anywhere__</span></a> for the translation, defaults to (empty string)/13 (English)/0</li>
+<li><tt class="docutils literal"><span class="pre">/search/4/{query?}/{translation?}/{transliteration?}/{offset?}</span></tt> - Gives back the first 10 search results by __words <a href="#id4"><span class="problematic" id="id9">anywhere__</span></a> for the transliteration, defaults to (empty string)/69 (Latin)/0</li>
+<li><tt class="docutils literal"><span class="pre">/page/{page_id?}/{translation?}/{transliteration?}</span></tt> - Gives back the scripture, translation and transliteration of a page in the language specified, defaults to 1/13 (English)/69 (Latin)</li>
+<li><tt class="docutils literal"><span class="pre">/hymn/{hymn_id?}/{translation?}/{transliteration?}</span></tt> - Gives back the scripture, translation and transliteration of a hymn in the language specified, defaults to 1/13 (English)/69 (Latin)</li>
+<li><tt class="docutils literal"><span class="pre">/{scripture_id?}/{translation?}/{transliteration?}</span></tt> - Gives back the scripture, translation and transliteration of a line in the language specified, defaults to 1/13 (English)/69 (Latin)</li>
+<li><ul class="first">
+<li><tt class="docutils literal"><span class="pre">/random/{type?}/{translation?}/{transliteration?}</span></tt> - Gives back either a page (type 1) or a hymn (type 2) with the scripture, translation and transliteration in the language specified, defaults to 1 (Page)/13 (English)/69 (Latin)</li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">/melody</span></tt> - Gives back a list of all the melodies</li>
+<li><tt class="docutils literal"><span class="pre">/melody/{id?}</span></tt> - Gives back the melody specified, defaults to 1</li>
+<li><tt class="docutils literal"><span class="pre">/author</span></tt> - Gives back a list of all the authors</li>
+<li><tt class="docutils literal"><span class="pre">/author/{id?}</span></tt> - Gives back the author specified, defaults to 1</li>
+<li><tt class="docutils literal"><span class="pre">/language</span></tt> - Gives back a list of all the languages</li>
+<li><tt class="docutils literal"><span class="pre">/language/{id?}</span></tt> - Gives back the language specified, defaults to 1</li>
+<li><tt class="docutils literal"><span class="pre">/about</span></tt> - Gives version number of API</li>
+</ul>
+</div></blockquote>
+<p>__Please Note:__ Some entries in our database contain two lines in the same entry and therefore will not show up in search by __first letters from <a href="#id4"><span class="problematic" id="id10">start__</span></a> (/search/). To find these you may search by __first letters <a href="#id4"><span class="problematic" id="id11">anywhere__</span></a> (/search/1/)</p>
+</div>
+<div class="section" id="version-history">
+<h1>Version History<a class="headerlink" href="#version-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>2.2<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Database: Changed column scripture in table scriptures to text, for better consistency</li>
+<li>Database: Correcting English translation for scripture_id 9897, from &#8221;...his is what I have seen...&#8221; to &#8221;...this is what I have seen...&#8221;</li>
+<li>Standardized Search API for better consistency</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>2.1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Database: Added a search column in Scriptures to enable first letter search</li>
+<li>Database: Changed all the table names to better follow the Laravel convention of pluralized table names</li>
+<li>Database: Fixed - hymn/3607 was wrongly attributed to Poet Balh when it should have been Poet Kirat</li>
+<li>Totally re-designed the API with the user and developer in mind</li>
+<li>Now combined results from all the tables including scripture, translation and transliteration are given</li>
+<li>Added a whole new Search API which gives results based upon first letter or word search from scriptures, translations or transliterations</li>
+<li>Added random search for page and hymn (also called Hukamnama)</li>
+<li>Changed the default translation to English and transliteration to Latin</li>
+<li>Updated all the test coverage</li>
+<li>Generally cleaned up the code base to be more maintainable and understandable for the future</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>2.0<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Database: Getting rid of old columns which are no longer required</li>
+<li>Database: Standardizing and simplifying the table and column names</li>
+<li>Database: Moving to just one language table</li>
+<li>Giving access to individual tables through a simple API e.g. /scripture/page/{page_id?} and /translation/hymn/{hymn_id?}/{language_id?}</li>
+</ul>
+</div>
+</div>
+<div class="section" id="to-do">
+<h1>To Do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Database: Fix Unicode issues with special characters</li>
+<li>Add in some logic to track the usage of each endpoint</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GurbaniDB Documentation</a></li>
+<li><a class="reference internal" href="#demo">Demo</a></li>
+<li><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li><a class="reference internal" href="#installing-the-api">Installing the API</a><ul>
+<li><a class="reference internal" href="#download-the-repository">Download the Repository</a></li>
+<li><a class="reference internal" href="#setup-a-virtual-host-install-laravel">Setup a Virtual Host &amp; Install Laravel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-the-gurbanidb-database">Installing the GurbaniDB Database</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#installing-gurbanidb">Installing GurbaniDB</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li><a class="reference internal" href="#api-routes">API Routes</a></li>
+<li><a class="reference internal" href="#version-history">Version History</a><ul>
+<li><a class="reference internal" href="#id1">2.2</a></li>
+<li><a class="reference internal" href="#id2">2.1</a></li>
+<li><a class="reference internal" href="#id3">2.0</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#to-do">To Do</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">gurbanidb 2.2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Sikher.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
